@@ -1,9 +1,25 @@
 package subtask3
 
+import kotlin.math.absoluteValue
+
 class ArrayCalculator {
 
-    // TODO: Complete the following function
     fun maxProductOf(numberOfItems: Int, itemsFromArray: Array<Any>): Int {
-        throw NotImplementedError("Not implemented")
+
+        val intArray = itemsFromArray
+            .filterIsInstance<Int>()
+
+        return if (intArray.isNotEmpty()) {
+            maxOf(
+                intArray.sortedByDescending { it }
+                    .take(numberOfItems)
+                    .fold(1) { i, other -> i.times(other) },
+                intArray.sortedByDescending { it.absoluteValue }
+                    .take(numberOfItems)
+                    .fold(1) { i, other -> i.times(other) }
+            )
+        } else {
+            0
+        }
     }
 }
